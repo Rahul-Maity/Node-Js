@@ -15,7 +15,7 @@ function errorHandler(err, req, res, next) {
     res.status(500).json({ error: err });
 }
 
-
+//server listning
 app.listen(3000, () => {
     console.log('Listning to the port no 3000');
 });
