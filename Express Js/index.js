@@ -1,53 +1,21 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const app = express();
-/*
-app.locals.title = 'My App';
-app.get('/', (req, res) => {
-    console.log(app.locals.title);
-    res.send('This is home page now');
-})
+app.use(express.json());
+//database connection with mongoose
+mongoose.connect('mongodb://localhost/todos')
+    .then(() => console.log('connection successfull'))
+    .catch(err => console.log(err));
 
-const admin = express();
-app.get('/', (req, res) => {
-    res.send('Welcome to application home');
-})
-admin.on('mount', (parent) => {
-    console.log(parent);
-})
-admin.get('/dashboard', (req, res) => {
-    res.send('Welcome to admin dashboard');
-    console.log(admin.mountpath);
-});
-app.use('/admin', admin);
-app.enable('case sensitive routing');
-app.disable('case sensitive routing');
-app.all('/about', (req, res) => {
-    res.send('Welcome to application home');
-})
-app.param('id', (req, res, next, id) => {
-    const user = {
-        userId: id,
-        name: 'India'
-    };
-    req.userDetails = user;
-    next();
-});
-app.get('/user/:id', (req, res) => {
-    console.log(req.userDetails);
-    res.send('Welcome to app home');
-})
-*/
-app.set('view engine', 'ejs');
-app.route('/about/mission')
-    .get((req, res)=> {
-        res.render('pages/about');
-    })
-    .put((req, res)=> {
-        res.send('Welcome to put');
-    })
-    .post((req, res)=> {
-        res.send('Welcome to post ');
-    })
+//default error handler
+function errorHandler(err, req, res, next) {
+    if (res.headersSent) {
+        return next(err);
+    }
+    res.status(500).json({ error: err });
+}
+
+
 app.listen(3000, () => {
-    console.log('listning on port 3000');
+    console.log('Listning to the port no 3000');
 });
