@@ -31,12 +31,17 @@ router.post('/', async (req, res) => {
 });
 //POST ALL THE TODO
 router.post('/all', async (req, res) => {
-    
+    const insertManyTodos = req.body;
+    if (insertManyTodos) {
+        try {
+            const data = Todo.insertMany(insertManyTodos);
+            res.status(200).json({ message: "Many data inserted" });
+        } catch (error) {
+            res.status(500).json({ err: "Error saving many data" });
+        }
+    }
 });
-//POST ALL THE TODO
-router.post('/all', async (req, res) => {
-    
-});
+
 //PUT TODO
 router.put('/:id', async (req, res) => {
     
