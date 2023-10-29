@@ -5,12 +5,10 @@ const app = express();
 app.use(express.json());
 //database connection with mongoose
 mongoose.set('strictQuery', false);
-mongoose.connect('mongodb://localhost:27017/todos')
-    .then(() => console.log('connection successfull'))
+mongoose.connect('mongodb://localhost:27017/TodoDatas')
+    .then(() => console.log('connection successfull with db'))
     .catch(err => console.log(err));
-
-
-
+ 
 
 //application routes
 app.use('/todo', todoHandler);
@@ -28,16 +26,3 @@ app.listen(3000, () => {
 });
 
 
-// const validator = require("validator");
-
-// //connection creation to database
-
-// mongoose.set('strictQuery', false);
-// mongoose.connect("mongodb://localhost:27017/rahultech", (err, db) => {
-
-//     if (err) {
-//         console.log(`Database not connected :   ${err}`)
-//     } else {
-//         console.log('Database connected Successfully')
-//     }
-// });

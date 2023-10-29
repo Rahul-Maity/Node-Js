@@ -17,18 +17,17 @@ router.get('/:id', async (req, res) => {
 //POST TODO
 router.post('/', async (req, res) => {
     const newTodo = new Todo(req.body);
-    await newTodo.save((err) => {
-        if (err) {
-            res.status(500).json({
-                error: "There was a server side error"
-            });
-        }
-        else {
-            res.status(200).json({
-                message: "Todo was inserted successfully"
-            });
-        }
-    });
+    await newTodo
+        .save()
+        .then(() => {
+            res.status(200).json({ message: 'Todo created successfully' });
+        })
+        .catch((err) => {
+            console.log(err.message);
+            res.status(500).json({ err: 'Wrong on server side' });
+        });
+    
+    
 });
 //POST ALL THE TODO
 router.post('/all', async (req, res) => {
